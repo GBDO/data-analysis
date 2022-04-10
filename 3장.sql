@@ -12,4 +12,9 @@
         END AS device_name
     FROM mst_users;
 
+    SELECT
+        Stamp
+        , substring(referrer from ‘https?://([^/]*)’) AS referrer_host #(PostgreSQL의 경우)
+        # , host(referrer) AS referrer_host (BigQuery)
+    FROM access_log;
 
