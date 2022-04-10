@@ -26,3 +26,19 @@
         ## , regexp_extract(url, ‘//[^/]+([^?#]+)’) AS path #(BigQuery)
         ## , regexp_extract(url, ‘id=(^&)*)’) AS id #(BigQuery)
     FROM access_log;
+
+    SELECT
+        Stamp
+        , url
+        , split_part(substring(url from ‘//[^/]+([^?#]+)’), ’/’, 2) AS path1 # (PostgreSQL의 경우)
+        , split_part(substring(url from ‘//[^/]+([^?#]+)’), ’/’, 3) AS path2 # (PostgreSQL의 경우)
+        ## , split(regexp_extract(url, '//[^/]+([^?#]+'), '/')[SAFE_ORDINAL(2)] AS path1 # BigQuery
+        ## , split(regexp_extract(url, '//[^/]+([^?#]+'), '/')[SAFE_ORDINAL(3)] AS path2 # BigQuery
+
+    FROM access_log;
+
+    SELECT
+        CURRENT_DATE AS dt # 모든 DBMS
+        ,CURRENT_TIMESTAMP AS Stamp # PostgreSQL(타임존 O), BigQuery(타임존 X)
+        ## ,LOCALTIMSTAMP AS stamp # 타임존을 적용하지 않은 PostgreSQL
+    ;   
