@@ -18,3 +18,11 @@
         # , host(referrer) AS referrer_host (BigQuery)
     FROM access_log;
 
+    SELECT
+        Stamp
+        , url
+        , substring(url from ‘//[^/]+([^?#]+)’) AS path #(PostgreSQL의 경우)
+        , substring(url from ‘id=([^&]*)’) AS id #(PostgreSQL의 경우)
+        ## , regexp_extract(url, ‘//[^/]+([^?#]+)’) AS path #(BigQuery)
+        ## , regexp_extract(url, ‘id=(^&)*)’) AS id #(BigQuery)
+    FROM access_log;
