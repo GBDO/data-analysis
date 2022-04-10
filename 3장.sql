@@ -67,3 +67,25 @@
     ,EXTRACT(HOUR FROM stamp) AS hour
     FROM
     (SELECT CAST('2016-01-30 12:00:00' AS timestamp) AS stamp) AS t;
+
+
+    SELECT
+        stamp
+        ## PostgreSQL substring 함수 사용
+        , substring(stamp, 1, 4) AS year
+        , substring(stamp, 6, 2) AS month
+        , substring(stamp, 9, 2) AS day
+        , substring(stamp, 12, 2) AS hour
+        , substring(stamp, 1, 7) AS year_month
+        ## PostgreSQL, BigQuery substr 함수 사용
+        , substr(stamp, 1, 4) AS year
+        , substr(stamp, 6, 2) AS month
+        , substr(stamp, 9, 2) AS day
+        , substr(stamp, 12, 2) AS hour
+        , substr(stamp, 1, 7) AS year_month
+    FROM
+        ## PostgreSQL 문자열 자료형으로 text 사용
+        (SELECT CAST('2016-01-30 12:00:00' AS text) AS stamp) AS t
+        ## BigQuery 문자열 자료형으로 string 사용
+        (SELECT CAST('2016-01-30 12:00:00' AS string) AS stamp) AS t
+    ;
