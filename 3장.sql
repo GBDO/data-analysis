@@ -89,3 +89,12 @@
         ## BigQuery 문자열 자료형으로 string 사용
         (SELECT CAST('2016-01-30 12:00:00' AS string) AS stamp) AS t
     ;
+
+
+    SELECT
+        abs(x1 - x2) AS abs
+        , sqrt(power(x1-x2, 2)) AS rms
+    FROM loaction_1d
+    ;
+
+## 코드 7-19 복습, 이해하기(p117)
