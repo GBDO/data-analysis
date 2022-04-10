@@ -42,3 +42,18 @@
         ,CURRENT_TIMESTAMP AS Stamp # PostgreSQL(타임존 O), BigQuery(타임존 X)
         ## ,LOCALTIMSTAMP AS stamp # 타임존을 적용하지 않은 PostgreSQL
     ;   
+
+    SELECT
+    ## PostgreSQL, BigQuery 'CAST(value AS type)' 사용
+    CAST('2016-01-30' AS date) AS dt
+    , CAST('2016-01-30 12:00:00' AS timestamp) AS stamp
+    ## BigQuery 'type(value)' 사용
+    ## date('2016-01-30') AS dt
+    ## , timestamp('2016-01-30 12:00:00') AS stamp
+    ##  PostgreSQL, BigQuery 'type 'value'' 사용
+    ## date '2016-01-30' AS dt
+    ## , timestamp '2016-01-30 12:00:00' AS stamp
+    ##  PostgreSQL 'value::type' 사용
+    ## '2016-01-30'::date AS dt
+    ## , '2016-01-30 12:00:00'::timestamp AS stamp 
+;
