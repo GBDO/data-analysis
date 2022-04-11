@@ -22,3 +22,30 @@ text_park <- raw_park %>%
   as_tibble() # tibble로 변환
 
 
+# 뛰어쓰기 기준 토큰화
+token_park <- text_park %>% unnest_tokens(input = value,
+                                          output = word,
+                                          token = 'words')
+token_park
+
+word_space <- token_park %>%
+  count(word, sort = T) %>%
+  filter(str_count(word) > 1) %>% # 두 글자 이상만 남기기
+  head(20)
+
+word_space
+
+# 가장 많이 사용된 단어 20개에 대한 시각화(막대 그래프)
+font_add_google(name = "Gamja Flower", family = "gamjaflower")
+showtext_auto()
+
+ggplot(word_space, aes(x = reorder(word, n), y = n)) +
+  geom_col() +
+  coord_flip() +
+  geom_text(aes(label = n), hjust = -0.3) +
+  
+  labs(title = "박근혜 대통령 출마 선언문 단어 빈도",
+       x = NULL, y = NULL) +
+  
+  theme(title = element_text(size = 12),
+        text = element_text(family = "gamjaflower"))  # 폰트 적용
