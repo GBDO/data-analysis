@@ -91,6 +91,38 @@
         abs(x1 - x2) AS abs
         , sqrt(power(x1-x2, 2)) AS rms
     FROM loaction_1d;
+    
+# 7-1 집약 함수를 사용해서 테이블 전체의 특징량을 계산하는 쿼리
+    SELECT
+        COUNT(*) AS total_count,
+        COUNT(DISTINCT user_id) AS user_count,
+        COUNT(DISTINCT product_id) AS product_count,
+        SUM(score) AS sum,
+        AVG(score) AS avg,
+        MAX(score) AS max,
+        MIN(score) AS MIN
+        FROM review;
+
+# 7-2 사용자 기반으로 데이터를 분할하고 집약 함수를 적용하는 쿼리
+    SELECT
+        user_id,
+        COUNT(*) AS total_count,
+        COUNT(DISTINCT product_id) AS product_count,
+        SUM(score) AS sum,
+        AVG(score) AS avg,
+        MAX(score) AS max,
+        MIN(score) AS MIN
+    FROM review
+    GROUP BY user_id;
+
+# 7-3 윈도 함수를 사용해 집약 함수의 결과와 원래 값을 동시에 다루는 쿼리
+    SELECT 
+        user_id,
+        product_id,
+        score,
+        AVG(score) OVER() AS avg_score,
+        AVG(score) OVER(PARTITION BY user_id) AS user_avg_score_diff
+    FROM review;
 
 # 7-9 카테고리별 순위 최상위 상품을 추출하는 쿼리
     SELECT DISTINCT
