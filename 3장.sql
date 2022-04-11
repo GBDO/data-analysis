@@ -1,4 +1,4 @@
-# 데이터 분석을 위한 SQL 레시피
+#출처 : 데이터 분석을 위한 SQL 레시피
 
 ## DBMS <공통>
 
@@ -91,7 +91,7 @@
         abs(x1 - x2) AS abs
         , sqrt(power(x1-x2, 2)) AS rms
     FROM loaction_1d;
-    
+
 # 7-9 카테고리별 순위 최상위 상품을 추출하는 쿼리
     SELECT DISTINCT
         category,
